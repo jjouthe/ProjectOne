@@ -29,11 +29,12 @@ const config = createConfig({
     [sepolia.id]: http(),
   },
   connectors: [
-    walletConnect({ projectId, metadata, showQrModal: false }),
-    injected({ shimDisconnect: true }),
+    walletConnect({ 
+      projectId 
+    }),
+    injected(),
     coinbaseWallet({
       appName: metadata.name,
-      appLogoUrl: metadata.icons[0],
     }),
   ],
 });
