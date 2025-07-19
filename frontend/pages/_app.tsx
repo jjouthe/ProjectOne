@@ -1,16 +1,13 @@
 import type { AppProps } from 'next/app';
-import { createWeb3Modal } from '@web3modal/wagmi/react';
+// import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { createConfig } from 'wagmi';
 import { http } from 'viem';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
-import { walletConnect, injected, coinbaseWallet } from '@wagmi/connectors';
+import { injected, coinbaseWallet } from '@wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import '../styles/globals.css';
-
-// Get projectId from https://cloud.walletconnect.com
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo-project-id';
 
 // Create a metadata object
 const metadata = {
@@ -29,9 +26,6 @@ const config = createConfig({
     [sepolia.id]: http(),
   },
   connectors: [
-    walletConnect({ 
-      projectId 
-    }),
     injected(),
     coinbaseWallet({
       appName: metadata.name,
@@ -39,13 +33,13 @@ const config = createConfig({
   ],
 });
 
-// Create modal
-createWeb3Modal({
-  wagmiConfig: config,
-  projectId,
-  enableAnalytics: true,
-  enableOnramp: true,
-});
+// Web3Modal temporarily disabled - using basic wallet connection
+// createWeb3Modal({
+//   wagmiConfig: config,
+//   projectId,
+//   enableAnalytics: true,
+//   enableOnramp: true,
+// });
 
 // Create query client
 const queryClient = new QueryClient({
