@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { useAccount, useConnect, useDisconnect } from 'wagmi';
+// import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
-import WalletConnection from '../components/WalletConnection';
+// import WalletConnection from '../components/WalletConnection';
 import IdentityCard from '../components/IdentityCard';
 import DeFiDashboard from '../components/DeFiDashboard';
-import { useIdentity } from '../hooks/useIdentity';
+// import { useIdentity } from '../hooks/useIdentity';
 
 export default function Home() {
-  const { address, isConnected } = useAccount();
-  const { identity, loading: identityLoading } = useIdentity(address);
+  // Temporarily disabled wagmi hooks - will be re-enabled once Web3 integration is fixed
+  // const { address, isConnected } = useAccount();
+  // const { identity, loading: identityLoading } = useIdentity(address);
   const [activeTab, setActiveTab] = useState<'identity' | 'defi'>('identity');
+  
+  // Mock data for demo purposes
+  const isConnected = false;
+  const address = null;
+  const identity = null;
+  const identityLoading = false;
 
   return (
     <>
@@ -46,7 +53,19 @@ export default function Home() {
                 </p>
                 
                 {!isConnected ? (
-                  <WalletConnection />
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-blue-50 border border-blue-200 rounded-lg p-4 inline-block"
+                  >
+                    <p className="text-blue-800 font-medium">
+                      🔗 Wallet Connection (Coming Soon)
+                    </p>
+                    <p className="text-blue-600 text-sm mt-1">
+                      Web3 integration will be restored once compatibility issues are resolved
+                    </p>
+                  </motion.div>
                 ) : (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
@@ -187,4 +206,3 @@ const features = [
     ),
   },
 ];
-
