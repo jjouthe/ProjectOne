@@ -1,0 +1,28 @@
+{
+  "name": "silentintellect-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for SilentIntellect blockchain application",
+  "scripts": {
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "deploy:local": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:testnet": "hardhat run scripts/deploy.js --network goerli",
+    "deploy:mainnet": "hardhat run scripts/deploy.js --network mainnet",
+    "verify": "hardhat verify",
+    "coverage": "hardhat coverage",
+    "lint": "solhint 'contracts/**/*.sol'",
+    "lint:fix": "solhint 'contracts/**/*.sol' --fix"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^3.0.2",
+    "@openzeppelin/hardhat-upgrades": "^1.28.0",
+    "hardhat": "^2.17.1",
+    "solhint": "^3.6.2"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.9.3",
+    "@openzeppelin/contracts-upgradeable": "^4.9.3",
+    "dotenv": "^16.3.1"
+  }
+}
+
