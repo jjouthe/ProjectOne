@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
-import { useWeb3Modal } from '@web3modal/wagmi/react';
+// import { useAccount, useDisconnect } from 'wagmi';
+// import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { motion } from 'framer-motion';
 
 interface LayoutProps {
@@ -8,9 +8,14 @@ interface LayoutProps {
 }
 
 export default function Layout({ children }: LayoutProps) {
-  const { address, isConnected } = useAccount();
-  const { open } = useWeb3Modal();
-  const { disconnect } = useDisconnect();
+  // Temporarily disabled wagmi hooks - will be re-enabled once Web3 integration is fixed
+  // const { address, isConnected } = useAccount();
+  // const { open } = useWeb3Modal();
+  // const { disconnect } = useDisconnect();
+  
+  // Mock data for demo purposes
+  const isConnected = false;
+  const address = null;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -60,9 +65,9 @@ export default function Layout({ children }: LayoutProps) {
                     </span>
                   </div>
                   <button
-                    onClick={() => open()}
+                    onClick={() => console.log('Wallet management coming soon')}
                     className="text-gray-500 hover:text-gray-700 transition-colors"
-                    title="Manage Wallet"
+                    title="Manage Wallet (Coming Soon)"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
