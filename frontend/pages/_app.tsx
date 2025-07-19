@@ -1,47 +1,41 @@
 import type { AppProps } from 'next/app';
-import { WagmiConfig, createConfig, configureChains, mainnet, goerli } from 'wagmi';
-import { publicProvider } from 'wagmi/providers/public';
-import { infuraProvider } from 'wagmi/providers/infura';
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { createWeb3Modal } from '@web3modal/wagmi/react';
+import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
+import { WagmiProvider } from 'wagmi';
+import { mainnet, sepolia } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import '../styles/globals.css';
 
-// Configure chains and providers
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet, goerli],
-  [
-    infuraProvider({ apiKey: process.env.NEXT_PUBLIC_INFURA_API_KEY || '' }),
-    publicProvider(),
-  ]
-);
+// Get projectId from https://cloud.walletconnect.com
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo-project-id';
 
-// Configure connectors
-const connectors = [
-  new MetaMaskConnector({ chains }),
-  new WalletConnectConnector({
-    chains,
-    options: {
-      projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || '',
-    },
-  }),
-  new InjectedConnector({
-    chains,
-    options: {
-      name: 'Injected',
-      shimDisconnect: true,
-    },
-  }),
-];
+// Create a metadata object
+const metadata = {
+  name: 'SilentIntellect',
+  description: 'Blockchain DeFi & Digital Identity Application',
+  url: 'https://silentintellect.com',
+  icons: ['https://avatars.githubusercontent.com/u/37784886']
+};
 
-// Create wagmi config
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient,
-  webSocketPublicClient,
+// Create wagmiConfig
+const chains = [mainnet, sepolia] as const;
+const config = defaultWagmiConfig({
+  chains,
+  projectId,
+  metadata,
+  enableWalletConnect: true,
+  enableInjected: true,
+  enableEIP6963: true,
+  enableCoinbase: true,
+});
+
+// Create modal
+createWeb3Modal({
+  wagmiConfig: config,
+  projectId,
+  enableAnalytics: true,
+  enableOnramp: true,
 });
 
 // Create query client
@@ -49,15 +43,15 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
-      cacheTime: 1000 * 60 * 10, // 10 minutes
+      gcTime: 1000 * 60 * 10, // 10 minutes (renamed from cacheTime)
     },
   },
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <WagmiConfig config={wagmiConfig}>
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
         <Toaster
           position="top-right"
@@ -83,8 +77,7 @@ export default function App({ Component, pageProps }: AppProps) {
             },
           }}
         />
-      </WagmiConfig>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
-

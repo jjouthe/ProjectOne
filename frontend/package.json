@@ -13,25 +13,25 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "next": "13.4.19",
+    "next": "14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "ethers": "^6.7.1",
-    "@web3modal/ethereum": "^2.7.1",
-    "@web3modal/react": "^2.7.1",
-    "wagmi": "^1.4.3",
-    "viem": "^1.10.9",
-    "@tanstack/react-query": "^4.32.6",
+    "ethers": "^6.8.1",
+    "@web3modal/wagmi": "^3.5.7",
+    "@web3modal/siwe": "^3.5.7",
+    "wagmi": "^2.5.7",
+    "viem": "^2.7.15",
+    "@tanstack/react-query": "^5.17.15",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "clsx": "^2.0.0",
-    "tailwindcss": "^3.3.3",
-    "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
+    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
     "react-hot-toast": "^2.4.1",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^10.16.16",
     "recharts": "^2.8.0",
-    "date-fns": "^2.30.0"
+    "date-fns": "^3.0.6"
   },
   "devDependencies": {
     "@types/node": "20.5.9",
@@ -46,4 +46,3 @@
     "jest-environment-jsdom": "^29.6.4"
   }
 }
-

@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useAccount } from 'wagmi';
+import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { motion } from 'framer-motion';
 
 interface LayoutProps {
@@ -8,7 +9,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const { address, isConnected } = useAccount();
-  const { disconnect } = useDisconnect();
+  const { open } = useWeb3Modal();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -58,9 +59,9 @@ export default function Layout({ children }: LayoutProps) {
                     </span>
                   </div>
                   <button
-                    onClick={() => disconnect()}
+                    onClick={() => open()}
                     className="text-gray-500 hover:text-gray-700 transition-colors"
-                    title="Disconnect Wallet"
+                    title="Manage Wallet"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
@@ -167,4 +168,3 @@ export default function Layout({ children }: LayoutProps) {
     </div>
   );
 }
-
