@@ -88,9 +88,18 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Main Application */}
-          {isConnected && (
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Main Application - Demo Mode */}
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              {/* Demo Banner */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-8 text-center">
+                <p className="text-blue-800 font-medium">
+                  🎯 Demo Mode - Explore the Interface
+                </p>
+                <p className="text-blue-600 text-sm mt-1">
+                  This is a demonstration of the complete blockchain application interface with mock data
+                </p>
+              </div>
+
               {/* Tab Navigation */}
               <div className="flex justify-center mb-8">
                 <div className="bg-white rounded-lg p-1 shadow-sm border">
@@ -132,7 +141,6 @@ export default function Home() {
                 )}
               </motion.div>
             </section>
-          )}
 
           {/* Features Section */}
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
