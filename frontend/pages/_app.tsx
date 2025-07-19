@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
-import { http, createConfig } from 'wagmi';
+import { createConfig } from 'wagmi';
+import { http } from 'viem';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
 import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
