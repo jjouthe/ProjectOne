@@ -4,7 +4,7 @@ import { createConfig } from 'wagmi';
 import { http } from 'viem';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
-import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
+import { walletConnect, injected, coinbaseWallet } from '@wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import '../styles/globals.css';
