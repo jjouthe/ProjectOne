@@ -4,7 +4,7 @@ import { createConfig } from 'wagmi';
 import { http } from 'viem';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
-import { injected, coinbaseWallet } from '@wagmi/connectors';
+// Using basic wagmi configuration without external connectors for now
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import '../styles/globals.css';
@@ -25,12 +25,13 @@ const config = createConfig({
     [mainnet.id]: http(),
     [sepolia.id]: http(),
   },
-  connectors: [
-    injected(),
-    coinbaseWallet({
-      appName: metadata.name,
-    }),
-  ],
+  // Using default connectors for now to avoid compatibility issues
+  // connectors: [
+  //   injected(),
+  //   coinbaseWallet({
+  //     appName: metadata.name,
+  //   }),
+  // ],
 });
 
 // Web3Modal temporarily disabled - using basic wallet connection
