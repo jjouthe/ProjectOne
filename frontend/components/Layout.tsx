@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { useWeb3Modal } from '@web3modal/wagmi/react';
 import { motion } from 'framer-motion';
 
@@ -10,6 +10,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const { address, isConnected } = useAccount();
   const { open } = useWeb3Modal();
+  const { disconnect } = useDisconnect();
 
   return (
     <div className="min-h-screen bg-gray-50">
