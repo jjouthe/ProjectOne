@@ -1,7 +1,6 @@
 import type { AppProps } from 'next/app';
-import { createWeb3Modal } from '@web3modal/wagmi/react';
-import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
-import { WagmiProvider } from 'wagmi';
+import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
+import { WagmiConfig } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
@@ -19,38 +18,29 @@ const metadata = {
 };
 
 // Create wagmiConfig
-const chains = [mainnet, sepolia] as const;
-const config = defaultWagmiConfig({
+const chains = [mainnet, sepolia];
+const wagmiConfig = defaultWagmiConfig({
   chains,
   projectId,
   metadata,
-  enableWalletConnect: true,
-  enableInjected: true,
-  enableEIP6963: true,
-  enableCoinbase: true,
 });
 
 // Create modal
-createWeb3Modal({
-  wagmiConfig: config,
-  projectId,
-  enableAnalytics: true,
-  enableOnramp: true,
-});
+createWeb3Modal({ wagmiConfig, projectId, chains });
 
 // Create query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
-      gcTime: 1000 * 60 * 10, // 10 minutes (renamed from cacheTime)
+      cacheTime: 1000 * 60 * 10, // 10 minutes
     },
   },
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config}>
+    <WagmiConfig config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
         <Toaster
@@ -78,6 +68,6 @@ export default function App({ Component, pageProps }: AppProps) {
           }}
         />
       </QueryClientProvider>
-    </WagmiProvider>
+    </WagmiConfig>
   );
 }
