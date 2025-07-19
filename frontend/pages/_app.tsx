@@ -1,8 +1,9 @@
 import type { AppProps } from 'next/app';
 import { createWeb3Modal } from '@web3modal/wagmi/react';
-import { defaultWagmiConfig } from '@web3modal/wagmi/react/config';
+import { http, createConfig } from 'wagmi';
 import { WagmiProvider } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
+import { walletConnect, injected, coinbaseWallet } from 'wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import '../styles/globals.css';
@@ -20,10 +21,20 @@ const metadata = {
 
 // Create wagmiConfig
 const chains = [mainnet, sepolia] as const;
-const config = defaultWagmiConfig({
+const config = createConfig({
   chains,
-  projectId,
-  metadata,
+  transports: {
+    [mainnet.id]: http(),
+    [sepolia.id]: http(),
+  },
+  connectors: [
+    walletConnect({ projectId, metadata, showQrModal: false }),
+    injected({ shimDisconnect: true }),
+    coinbaseWallet({
+      appName: metadata.name,
+      appLogoUrl: metadata.icons[0],
+    }),
+  ],
 });
 
 // Create modal
