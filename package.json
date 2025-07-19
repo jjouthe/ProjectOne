@@ -1,0 +1,49 @@
+{
+  "name": "silentintellect-blockchain-app",
+  "version": "1.0.0",
+  "description": "Blockchain DeFi & Digital Identity Application for silentintellect.com",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install && cd ../contracts && npm install",
+    "build:all": "npm run build:contracts && npm run build:frontend && npm run build:backend",
+    "build:contracts": "cd contracts && npm run compile",
+    "build:frontend": "cd frontend && npm run build",
+    "build:backend": "cd backend && npm run build",
+    "test:all": "npm run test:contracts && npm run test:backend && npm run test:frontend",
+    "test:contracts": "cd contracts && npm run test",
+    "test:backend": "cd backend && npm run test",
+    "test:frontend": "cd frontend && npm run test",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "deploy:local": "cd contracts && npm run deploy:local",
+    "deploy:testnet": "cd contracts && npm run deploy:testnet",
+    "deploy:mainnet": "cd contracts && npm run deploy:mainnet"
+  },
+  "keywords": [
+    "blockchain",
+    "defi",
+    "identity",
+    "ethereum",
+    "web3",
+    "smart-contracts"
+  ],
+  "author": "Silent Intellect",
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,sol}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
+
